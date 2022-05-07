@@ -9,24 +9,24 @@ class Sql extends PDO {
     }
 
     /**
-     * MONTA PARAMETROS DO bindParams DO PDO
-     * @param object    $statement  Objeto de conexão com o banco
-     * @param array     $parameters Array de parametros para o bindParams
-     */
-    private function buildParams ($statement, $parameters = []){
-        foreach ($parameters as $key => $value) {
-            $statement->setParam($key, $value);
-        }
-    }
-
-    /**
      * DEFINE O PARAMETRO
      * @param object    $statement  Objeto de conexão com o banco
      * @param string    $key        Chave do array
      * @param string    $value      Valor do array
      */
     private function setParam ($statement, $key, $value){
-        $statement->bindParams($key,$value);
+        $statement->bindParam($key,$value);
+    }
+
+    /**
+     * MONTA PARAMETROS DO bindParams DO PDO
+     * @param object    $statement  Objeto de conexão com o banco
+     * @param array     $parameters Array de parametros para o bindParams
+     */
+    private function buildParams ($statement, $parameters = []){
+        foreach ($parameters as $key => $value) {
+            $this->setParam($statement, $key, $value);
+        }
     }
 
     /**
